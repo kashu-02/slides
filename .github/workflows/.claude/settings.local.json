@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(git -C /Users/shun/dev/lt log --oneline -10)",
+      "Bash(git -C /Users/shun/dev/lt branch:*)",
+      "Bash(git -C /Users/shun/dev/lt config:*)",
+      "Bash(git -C /Users/shun/dev/lt rev-parse:*)",
+      "Bash(git -C /Users/shun/dev/lt status)",
+      "Bash(ls:*)",
+      "Bash(nix:*)",
+      "WebSearch",
+      "Bash(chmod:*)",
+      "Bash(test:*)"
+    ]
+  }
+}

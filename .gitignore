@@ -1,0 +1,30 @@
+# Nix
+result
+result-*
+.direnv
+
+# Node.js
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build artifacts
+*.pdf
+*.html
+
+# Unlisted markers (track these in git)
+!.unlisted
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
