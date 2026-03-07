@@ -106,7 +106,7 @@ function buildPresentation(dir) {
 
   // Build HTML
   console.log('  Building HTML...');
-  exec(`npx @marp-team/marp-cli ${slideFile} -o ${htmlOutput} --html`);
+  exec(`npx @marp-team/marp-cli ${slideFile} -o ${htmlOutput} --html allow-local-files`);
 
   // Build PDF
   console.log('  Building PDF...');
