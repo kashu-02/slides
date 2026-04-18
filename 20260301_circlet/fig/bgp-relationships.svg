@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 460" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7F8C8D"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#E67E22"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="460" fill="#F8F9FA" rx="8"/>
+
+  <!-- === Transit（上段） === -->
+  <text x="350" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#2980B9">Transit（トランジット）</text>
+
+  <!-- Provider -->
+  <rect x="270" y="40" width="160" height="52" rx="10" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="350" y="63" text-anchor="middle" font-size="14" font-weight="bold" fill="white">AS 100</text>
+  <text x="350" y="81" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Provider（上流）</text>
+
+  <!-- Arrow down: 経路提供 -->
+  <line x1="320" y1="93" x2="320" y2="158" stroke="#7F8C8D" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+  <text x="308" y="131" text-anchor="end" font-size="11" fill="#555">経路提供</text>
+
+  <!-- Arrow up: 対価 -->
+  <line x1="380" y1="163" x2="380" y2="98" stroke="#E67E22" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arrowOrange)"/>
+  <text x="392" y="131" font-size="11" fill="#E67E22">対価（$$）</text>
+
+  <!-- Customer -->
+  <rect x="270" y="163" width="160" height="52" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="350" y="186" text-anchor="middle" font-size="14" font-weight="bold" fill="white">AS 200</text>
+  <text x="350" y="204" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Customer（下流）</text>
+
+  <!-- Separator -->
+  <line x1="40" y1="238" x2="660" y2="238" stroke="#D0D0D0" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- === Peering（下段） === -->
+  <text x="350" y="262" text-anchor="middle" font-size="15" font-weight="bold" fill="#27AE60">Peering（ピアリング）</text>
+
+  <!-- Peer A -->
+  <rect x="100" y="278" width="160" height="52" rx="10" fill="#9B59B6" filter="url(#shadow)"/>
+  <text x="180" y="301" text-anchor="middle" font-size="14" font-weight="bold" fill="white">AS 300</text>
+  <text x="180" y="319" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Peer</text>
+
+  <!-- Peer B -->
+  <rect x="440" y="278" width="160" height="52" rx="10" fill="#9B59B6" filter="url(#shadow)"/>
+  <text x="520" y="301" text-anchor="middle" font-size="14" font-weight="bold" fill="white">AS 400</text>
+  <text x="520" y="319" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Peer</text>
+
+  <!-- Double arrow -->
+  <line x1="265" y1="304" x2="435" y2="304" stroke="#7F8C8D" stroke-width="2.5"/>
+  <polygon points="435,300 445,304 435,308" fill="#7F8C8D"/>
+  <polygon points="265,300 255,304 265,308" fill="#7F8C8D"/>
+  <text x="350" y="295" text-anchor="middle" font-size="11" fill="#555">相互にトラフィック交換</text>
+
+  <!-- Explanation boxes -->
+  <rect x="40" y="355" width="290" height="80" rx="8" fill="white" stroke="#3498DB" stroke-width="1.5"/>
+  <text x="185" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#2980B9">Transit</text>
+  <text x="185" y="397" text-anchor="middle" font-size="10" fill="#555">Customer は Provider に料金を支払い</text>
+  <text x="185" y="414" text-anchor="middle" font-size="10" fill="#555">インターネット全体への接続を得る</text>
+
+  <rect x="370" y="355" width="290" height="80" rx="8" fill="white" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="515" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#27AE60">Peering</text>
+  <text x="515" y="397" text-anchor="middle" font-size="10" fill="#555">対等な関係で、お互いの Customer 宛</text>
+  <text x="515" y="414" text-anchor="middle" font-size="10" fill="#555">トラフィックのみを交換（通常無料）</text>
+</svg>
