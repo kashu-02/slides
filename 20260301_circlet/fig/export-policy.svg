@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27AE60"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#E74C3C"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#F8F9FA" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2C3E50">経路広報のルール（Valley-Free）</text>
+
+  <!-- Provider (top) -->
+  <rect x="310" y="60" width="180" height="50" rx="10" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="400" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Provider (AS 100)</text>
+  <text x="400" y="100" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">上流 ISP</text>
+
+  <!-- Main AS (center) -->
+  <rect x="290" y="175" width="220" height="60" rx="12" fill="#2C3E50" filter="url(#shadow)"/>
+  <text x="400" y="202" text-anchor="middle" font-size="15" font-weight="bold" fill="white">自分の AS (AS 200)</text>
+  <text x="400" y="222" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">ここから見た広報ルール</text>
+
+  <!-- Peer (right) -->
+  <rect x="600" y="175" width="150" height="50" rx="10" fill="#9B59B6" filter="url(#shadow)"/>
+  <text x="675" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Peer (AS 300)</text>
+  <text x="675" y="215" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">対等</text>
+
+  <!-- Customer A (bottom left) -->
+  <rect x="120" y="320" width="160" height="50" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="200" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Customer A</text>
+  <text x="200" y="360" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">AS 400</text>
+
+  <!-- Customer B (bottom right) -->
+  <rect x="520" y="320" width="160" height="50" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="600" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Customer B</text>
+  <text x="600" y="360" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">AS 500</text>
+
+  <!-- === Arrows from Provider === -->
+  <!-- Provider -> Self (receive) -->
+  <line x1="400" y1="110" x2="400" y2="170" stroke="#7F8C8D" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="430" y="145" font-size="10" fill="#555">受信</text>
+
+  <!-- === Arrows showing export policy === -->
+
+  <!-- Self -> Customer A (OK: green) -->
+  <line x1="340" y1="235" x2="230" y2="315" stroke="#27AE60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- Self -> Customer B (OK: green) -->
+  <line x1="460" y1="235" x2="570" y2="315" stroke="#27AE60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- Self -> Provider (NG: red, crossed) -->
+  <line x1="370" y1="175" x2="360" y2="115" stroke="#E74C3C" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="335" y="140" font-size="18" fill="#E74C3C" font-weight="bold">✕</text>
+
+  <!-- Self -> Peer (NG: red, crossed) -->
+  <line x1="510" y1="195" x2="595" y2="195" stroke="#E74C3C" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="560" y="188" font-size="18" fill="#E74C3C" font-weight="bold">✕</text>
+
+  <!-- Labels for rules -->
+  <!-- OK labels -->
+  <rect x="200" y="268" width="100" height="22" rx="4" fill="#27AE60" opacity="0.9"/>
+  <text x="250" y="283" text-anchor="middle" font-size="11" fill="white" font-weight="bold">広報 OK</text>
+
+  <rect x="490" y="268" width="100" height="22" rx="4" fill="#27AE60" opacity="0.9"/>
+  <text x="540" y="283" text-anchor="middle" font-size="11" fill="white" font-weight="bold">広報 OK</text>
+
+  <!-- NG labels -->
+  <rect x="300" y="130" width="100" height="22" rx="4" fill="#E74C3C" opacity="0.9"/>
+  <text x="350" y="145" text-anchor="middle" font-size="11" fill="white" font-weight="bold">広報 NG</text>
+
+  <rect x="540" y="172" width="100" height="22" rx="4" fill="#E74C3C" opacity="0.9"/>
+  <text x="590" y="187" text-anchor="middle" font-size="11" fill="white" font-weight="bold">広報 NG</text>
+
+</svg>

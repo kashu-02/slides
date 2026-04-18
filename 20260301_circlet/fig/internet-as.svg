@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <linearGradient id="asBg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90D9;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#357ABD;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="asBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5BA55B;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#4A8C4A;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="asBg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8833A;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#D4722E;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="asBg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9B59B6;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#8E44AD;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="asBg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E74C3C;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#C0392B;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#F8F9FA" rx="8"/>
+
+  <!-- Title -->
+  <!-- <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2C3E50">インターネットは AS の集合体</text> -->
+
+  <!-- Connection lines (drawn first, behind nodes) -->
+  <line x1="200" y1="130" x2="400" y2="100" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="600" y1="130" x2="400" y2="100" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="130" x2="150" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="130" x2="400" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="600" y1="130" x2="400" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="600" y1="130" x2="650" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="150" y1="280" x2="400" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="400" y1="280" x2="650" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+  <line x1="400" y1="100" x2="400" y2="280" stroke="#BDC3C7" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- AS Nodes -->
+  <!-- AS 100 - Tier1 ISP -->
+  <ellipse cx="400" cy="100" rx="70" ry="35" fill="url(#asBg1)" filter="url(#shadow)"/>
+  <text x="400" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 100</text>
+  <text x="400" y="112" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">Tier1 ISP</text>
+
+  <!-- AS 200 - ISP A -->
+  <ellipse cx="200" cy="130" rx="65" ry="32" fill="url(#asBg2)" filter="url(#shadow)"/>
+  <text x="200" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 200</text>
+  <text x="200" y="142" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">ISP A</text>
+
+  <!-- AS 300 - ISP B -->
+  <ellipse cx="600" cy="130" rx="65" ry="32" fill="url(#asBg3)" filter="url(#shadow)"/>
+  <text x="600" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 300</text>
+  <text x="600" y="142" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">ISP B</text>
+
+  <!-- AS 400 - Enterprise -->
+  <ellipse cx="150" cy="280" rx="65" ry="32" fill="url(#asBg4)" filter="url(#shadow)"/>
+  <text x="150" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 400</text>
+  <text x="150" y="292" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">企業 X</text>
+
+  <!-- AS 500 - CDN -->
+  <ellipse cx="400" cy="280" rx="65" ry="32" fill="url(#asBg5)" filter="url(#shadow)"/>
+  <text x="400" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 500</text>
+  <text x="400" y="292" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">CDN</text>
+
+  <!-- AS 600 - University -->
+  <ellipse cx="650" cy="280" rx="65" ry="32" fill="url(#asBg1)" filter="url(#shadow)"/>
+  <text x="650" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 600</text>
+  <text x="650" y="292" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">大学 Y</text>
+
+  <!-- BGP label on a connection -->
+  <rect x="265" y="97" width="40" height="18" rx="4" fill="#2C3E50" opacity="0.8"/>
+  <text x="285" y="110" text-anchor="middle" font-size="9" fill="white" font-weight="bold">BGP</text>
+
+  <rect x="465" y="97" width="40" height="18" rx="4" fill="#2C3E50" opacity="0.8"/>
+  <text x="485" y="110" text-anchor="middle" font-size="9" fill="white" font-weight="bold">BGP</text>
+
+  </svg>

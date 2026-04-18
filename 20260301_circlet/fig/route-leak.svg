@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27AE60"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#E74C3C"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="#F8F9FA" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2C3E50">Route Leak の仕組み</text>
+
+  <!-- Provider 1 (top left) -->
+  <rect x="80" y="60" width="170" height="50" rx="10" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="165" y="83" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Provider A (AS 100)</text>
+  <text x="165" y="100" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">10.0.0.0/8 を保持</text>
+
+  <!-- Provider 2 (top right) -->
+  <rect x="550" y="60" width="170" height="50" rx="10" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="635" y="83" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Provider B (AS 300)</text>
+  <text x="635" y="100" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">別の上流 ISP</text>
+
+  <!-- Leaking AS (center) -->
+  <rect x="290" y="180" width="220" height="60" rx="12" fill="#E74C3C" filter="url(#shadow)"/>
+  <text x="400" y="207" text-anchor="middle" font-size="15" font-weight="bold" fill="white">AS 200（設定ミス）</text>
+  <text x="400" y="227" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">Customer（両方の Provider に接続）</text>
+
+  <!-- Normal flow: Provider A -> AS 200 -->
+  <line x1="200" y1="110" x2="340" y2="175" stroke="#27AE60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <rect x="200" y="132" width="95" height="20" rx="4" fill="#27AE60" opacity="0.85"/>
+  <text x="247" y="146" text-anchor="middle" font-size="10" fill="white" font-weight="bold">正常: 経路受信</text>
+
+  <!-- LEAK: AS 200 -> Provider B -->
+  <line x1="460" y1="185" x2="595" y2="115" stroke="#E74C3C" stroke-width="3.5" marker-end="url(#arrowRed)"/>
+  <rect x="480" y="132" width="110" height="24" rx="4" fill="#E74C3C"/>
+  <text x="535" y="149" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Route Leak!</text>
+
+  <!-- Downstream AS -->
+  <rect x="530" y="290" width="170" height="50" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="615" y="313" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 400</text>
+  <text x="615" y="330" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">Provider B の Customer</text>
+
+  <!-- Provider B -> AS 400 (propagation) -->
+  <line x1="635" y1="115" x2="635" y2="285" stroke="#E74C3C" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+  <text x="660" y="200" font-size="10" fill="#E74C3C">Leak が伝搬</text>
+
+  <!-- Intended traffic path -->
+  <rect x="60" y="290" width="170" height="50" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="145" y="313" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 500</text>
+  <text x="145" y="330" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">本来の通信先</text>
+
+  <!-- Normal path indicator -->
+  <line x1="165" y1="110" x2="145" y2="285" stroke="#27AE60" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowGreen)"/>
+  <text x="120" y="200" font-size="10" fill="#27AE60">正常な経路</text>
+
+  <!-- Problem explanation box -->
+  <rect x="50" y="370" width="700" height="95" rx="8" fill="#FDF2F2" stroke="#E74C3C" stroke-width="1.5"/>
+  <text x="70" y="395" font-size="13" font-weight="bold" fill="#C0392B">何が起きるか:</text>
+  <text x="70" y="415" font-size="12" fill="#555">1. AS 200 が Provider A から受けた 10.0.0.0/8 を Provider B に広報してしまう</text>
+  <text x="70" y="435" font-size="12" fill="#555">2. Provider B は AS 200 経由の経路を選択し、下流にも伝搬する</text>
+  <text x="70" y="455" font-size="12" fill="#555">3. 本来 AS 200 を通らないトラフィックが流れ込み、輻輳・遅延・通信断が発生</text>
+</svg>

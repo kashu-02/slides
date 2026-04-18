@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2980B9"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27AE60"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#E74C3C"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="520" fill="#F8F9FA" rx="8"/>
+
+  <!-- ========== UPPER HALF: Role Negotiation ========== -->
+  <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2C3E50">1. OPEN メッセージでの Role ネゴシエーション</text>
+
+  <!-- AS A -->
+  <rect x="80" y="55" width="200" height="70" rx="10" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="180" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 100 (Provider)</text>
+  <text x="180" y="100" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">local-role: provider</text>
+  <text x="180" y="116" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.7)">Role Value: 0</text>
+
+  <!-- AS B -->
+  <rect x="520" y="55" width="200" height="70" rx="10" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="620" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="white">AS 200 (Customer)</text>
+  <text x="620" y="100" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">local-role: customer</text>
+  <text x="620" y="116" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.7)">Role Value: 4</text>
+
+  <!-- OPEN message arrows -->
+  <line x1="280" y1="78" x2="515" y2="78" stroke="#2980B9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <rect x="320" y="62" width="160" height="20" rx="4" fill="#EBF5FB" stroke="#2980B9" stroke-width="1"/>
+  <text x="400" y="77" text-anchor="middle" font-size="10" fill="#2980B9">OPEN: Role=Provider(0)</text>
+
+  <line x1="520" y1="102" x2="285" y2="102" stroke="#27AE60" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <rect x="320" y="92" width="166" height="20" rx="4" fill="#EAFAF1" stroke="#27AE60" stroke-width="1"/>
+  <text x="403" y="107" text-anchor="middle" font-size="10" fill="#27AE60">OPEN: Role=Customer(4)</text>
+
+  <!-- Check result -->
+  <rect x="310" y="130" width="180" height="28" rx="6" fill="#27AE60"/>
+  <text x="400" y="149" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Provider ↔ Customer = OK</text>
+
+  <!-- Role pairs table -->
+  <rect x="50" y="170" width="700" height="70" rx="6" fill="white" stroke="#BDC3C7" stroke-width="1"/>
+  <text x="80" y="190" font-size="11" font-weight="bold" fill="#2C3E50">有効な Role ペア:</text>
+  <text x="80" y="210" font-size="10" fill="#555">Provider ↔ Customer</text>
+  <text x="260" y="210" font-size="10" fill="#555">Peer ↔ Peer</text>
+  <text x="400" y="210" font-size="10" fill="#555">RS ↔ RS-Client</text>
+  <text x="80" y="230" font-size="10" fill="#E74C3C">不一致の場合: strict-mode が有効なら OPEN を拒否（Role Mismatch Notification）</text>
+
+  <!-- ========== LOWER HALF: OTC Attribute ========== -->
+  <line x1="50" y1="255" x2="750" y2="255" stroke="#BDC3C7" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="400" y="280" text-anchor="middle" font-size="16" font-weight="bold" fill="#2C3E50">2. OTC（Only to Customer）属性による Route Leak 防止</text>
+
+  <!-- Provider -->
+  <rect x="50" y="305" width="150" height="45" rx="8" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="125" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Provider (AS 100)</text>
+
+  <!-- Customer / Middle AS -->
+  <rect x="310" y="305" width="180" height="45" rx="8" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="400" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Customer (AS 200)</text>
+
+  <!-- Another Provider -->
+  <rect x="600" y="305" width="160" height="45" rx="8" fill="#3498DB" filter="url(#shadow)"/>
+  <text x="680" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Provider B (AS 300)</text>
+
+  <!-- Another Customer below -->
+  <rect x="310" y="430" width="180" height="45" rx="8" fill="#2ECC71" filter="url(#shadow)"/>
+  <text x="400" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Customer C (AS 400)</text>
+
+  <!-- Arrow: Provider -> Customer with OTC -->
+  <line x1="200" y1="327" x2="305" y2="327" stroke="#2980B9" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <rect x="210" y="300" width="80" height="18" rx="4" fill="#E8D44D"/>
+  <text x="250" y="313" text-anchor="middle" font-size="9" font-weight="bold" fill="#2C3E50">OTC: AS100</text>
+  <text x="252" y="345" text-anchor="middle" font-size="9" fill="#555">OTC 属性が付与される</text>
+
+  <!-- Arrow: Customer -> Provider B (BLOCKED) -->
+  <line x1="490" y1="320" x2="595" y2="320" stroke="#E74C3C" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="545" y="312" text-anchor="middle" font-size="20" fill="#E74C3C" font-weight="bold">✕</text>
+  <rect x="510" y="340" width="110" height="18" rx="4" fill="#E74C3C"/>
+  <text x="565" y="353" text-anchor="middle" font-size="9" fill="white" font-weight="bold">OTC 付き → 広報 NG</text>
+
+  <!-- Arrow: Customer -> Customer C (OK) -->
+  <line x1="400" y1="350" x2="400" y2="425" stroke="#27AE60" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <rect x="415" y="380" width="100" height="18" rx="4" fill="#27AE60"/>
+  <text x="465" y="393" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Customer → OK</text>
+
+  <!-- Legend -->
+  <rect x="50" y="490" width="700" height="22" rx="4" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="400" y="506" text-anchor="middle" font-size="11" fill="#555">OTC 属性が付いた経路は Customer にしか広報できない → Valley-Free 違反を自動で防止</text>
+</svg>

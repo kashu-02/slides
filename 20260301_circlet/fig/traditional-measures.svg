@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7F8C8D"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="#F8F9FA" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#2C3E50">従来の Route Leak 対策</text>
+
+  <!-- === IRR + Prefix Filter === -->
+  <rect x="30" y="60" width="230" height="170" rx="10" fill="white" stroke="#3498DB" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="60" width="230" height="32" rx="10" fill="#3498DB"/>
+  <rect x="30" y="80" width="230" height="12" fill="#3498DB"/>
+  <text x="145" y="82" text-anchor="middle" font-size="13" font-weight="bold" fill="white">IRR + Prefix Filter</text>
+
+  <text x="50" y="115" font-size="11" fill="#555">IRR（Internet Routing</text>
+  <text x="50" y="130" font-size="11" fill="#555">Registry）にポリシーを登録</text>
+  <text x="50" y="150" font-size="11" fill="#555">→ それを元にフィルタを生成</text>
+  <text x="50" y="175" font-size="11" fill="#E74C3C">問題: データが古い・不正確</text>
+  <text x="50" y="195" font-size="11" fill="#E74C3C">手動保守が大変</text>
+
+  <!-- Caution icon -->
+  <circle cx="230" cy="210" r="10" fill="#F39C12"/>
+  <text x="230" y="214" text-anchor="middle" font-size="12" fill="white" font-weight="bold">!</text>
+
+  <!-- === RPKI / ROA === -->
+  <rect x="285" y="60" width="230" height="170" rx="10" fill="white" stroke="#27AE60" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="285" y="60" width="230" height="32" rx="10" fill="#27AE60"/>
+  <rect x="285" y="80" width="230" height="12" fill="#27AE60"/>
+  <text x="400" y="82" text-anchor="middle" font-size="13" font-weight="bold" fill="white">RPKI / ROA</text>
+
+  <text x="305" y="115" font-size="11" fill="#555">ROA（Route Origin</text>
+  <text x="305" y="130" font-size="11" fill="#555">Authorization）で Origin AS</text>
+  <text x="305" y="150" font-size="11" fill="#555">の正当性を暗号的に検証</text>
+  <text x="305" y="175" font-size="11" fill="#E74C3C">問題: Origin AS が正しいまま</text>
+  <text x="305" y="195" font-size="11" fill="#E74C3C">Leak される場合は検出不可</text>
+
+  <!-- Caution icon -->
+  <circle cx="485" cy="210" r="10" fill="#F39C12"/>
+  <text x="485" y="214" text-anchor="middle" font-size="12" fill="white" font-weight="bold">!</text>
+
+  <!-- === BGP Communities / Max-prefix === -->
+  <rect x="540" y="60" width="230" height="170" rx="10" fill="white" stroke="#9B59B6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="540" y="60" width="230" height="32" rx="10" fill="#9B59B6"/>
+  <rect x="540" y="80" width="230" height="12" fill="#9B59B6"/>
+  <text x="655" y="82" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Communities / Max-prefix</text>
+
+  <text x="560" y="115" font-size="11" fill="#555">BGP Communities で広報</text>
+  <text x="560" y="130" font-size="11" fill="#555">制御を隣接 AS に依頼</text>
+  <text x="560" y="150" font-size="11" fill="#555">Max-prefix で経路数の異常を検知</text>
+  <text x="560" y="175" font-size="11" fill="#E74C3C">問題: 相手の対応は任意</text>
+  <text x="560" y="195" font-size="11" fill="#E74C3C">少数経路の Leak は検知不可</text>
+
+  <!-- Caution icon -->
+  <circle cx="740" cy="210" r="10" fill="#F39C12"/>
+  <text x="740" y="214" text-anchor="middle" font-size="12" fill="white" font-weight="bold">!</text>
+
+  <!-- Common limitation arrow -->
+  <line x1="100" y1="250" x2="100" y2="290" stroke="#7F8C8D" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="400" y1="250" x2="400" y2="290" stroke="#7F8C8D" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="700" y1="250" x2="700" y2="290" stroke="#7F8C8D" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+  <!-- Common problem box -->
+  <rect x="50" y="295" width="700" height="60" rx="10" fill="#FDF2F2" stroke="#E74C3C" stroke-width="2"/>
+  <text x="400" y="322" text-anchor="middle" font-size="14" font-weight="bold" fill="#C0392B">共通の課題</text>
+  <text x="400" y="345" text-anchor="middle" font-size="12" fill="#555">いずれも運用者の努力に依存 / Route Leak をプロトコルレベルで防止する仕組みがない</text>
+
+  <!-- Arrow to solution -->
+  <line x1="400" y1="360" x2="400" y2="395" stroke="#27AE60" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+
+  <!-- Solution box -->
+  <rect x="180" y="400" width="440" height="55" rx="10" fill="#EBF5FB" stroke="#2980B9" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="425" text-anchor="middle" font-size="15" font-weight="bold" fill="#2980B9">RFC 9234 の登場</text>
+  <text x="400" y="445" text-anchor="middle" font-size="12" fill="#555">BGP プロトコル自体に Route Leak 防止機能を組み込む</text>
+</svg>
