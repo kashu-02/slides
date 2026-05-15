@@ -116,9 +116,8 @@ root.get('/', (c) => {
   </head>
   <body>
     <main>
-      <p class="eyebrow">Cloudflare Worker</p>
+      <p class="eyebrow">Slides</p>
       <h1>Presentation Archive</h1>
-      <p class="subtitle">Markdown slides are rendered on demand through Marp Core and served from Hono routes.</p>
       <ul class="deck-list">${items}</ul>
     </main>
   </body>
@@ -139,11 +138,196 @@ root.get('/:slug/', (c) => {
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>${escapeHtml(presentation.title)}</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: #000;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .marp-view {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .marpit {
+        width: 100%;
+        height: 100%;
+      }
+
+      .marpit > svg[data-marpit-svg] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s linear;
+      }
+
+      .marpit > svg[data-marpit-svg].is-active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .marp-osc {
+        position: absolute;
+        left: 50%;
+        bottom: 32px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.68);
+        color: #fff;
+        transform: translateX(-50%);
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+        user-select: none;
+      }
+
+      .marp-osc button {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        opacity: 0.86;
+        padding: 0 2px;
+      }
+
+      .marp-osc button:hover {
+        opacity: 1;
+      }
+
+      .marp-osc button:disabled {
+        opacity: 0.2;
+        cursor: not-allowed;
+      }
+
+      .marp-osc-page {
+        min-width: 7em;
+        text-align: center;
+        opacity: 0.9;
+      }
+
+      @media (max-width: 640px) {
+        .marp-osc {
+          bottom: 18px;
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        .marp-osc-page {
+          min-width: 5.5em;
+        }
+      }
+    </style>
     <style>${rendered.css}</style>
   </head>
-  <body>${rendered.html}</body>
+  <body>
+    <div class="marp-view">
+      <div class="marp-osc" aria-label="Slide controls">
+        <button type="button" data-action="prev" aria-label="Previous slide">Prev</button>
+        <span class="marp-osc-page" data-page>1 / 1</span>
+        <button type="button" data-action="next" aria-label="Next slide">Next</button>
+        <button type="button" data-action="fullscreen" aria-label="Toggle fullscreen">Full</button>
+      </div>
+      ${rendered.html}
+    </div>
+    <script>
+      (() => {
+        const slides = Array.from(document.querySelectorAll('.marpit > svg[data-marpit-svg]'))
+        if (slides.length === 0) return
+
+        const page = document.querySelector('[data-page]')
+        const prev = document.querySelector('[data-action="prev"]')
+        const next = document.querySelector('[data-action="next"]')
+        const fullscreen = document.querySelector('[data-action="fullscreen"]')
+
+        const clamp = (index) => Math.max(0, Math.min(index, slides.length - 1))
+
+        const parseHash = () => {
+          const matched = window.location.hash.match(/^#(\\d+)$/)
+          if (!matched) return 0
+          return clamp(Number.parseInt(matched[1], 10) - 1)
+        }
+
+        let current = parseHash()
+
+        const render = () => {
+          slides.forEach((slide, index) => {
+            slide.classList.toggle('is-active', index === current)
+          })
+
+          if (page) page.textContent = \`\${current + 1} / \${slides.length}\`
+          if (prev) prev.disabled = current === 0
+          if (next) next.disabled = current === slides.length - 1
+
+          const hash = \`#\${current + 1}\`
+          if (window.location.hash !== hash) history.replaceState(null, '', hash)
+        }
+
+        const move = (delta) => {
+          const nextIndex = clamp(current + delta)
+          if (nextIndex === current) return
+          current = nextIndex
+          render()
+        }
+
+        prev?.addEventListener('click', () => move(-1))
+        next?.addEventListener('click', () => move(1))
+        fullscreen?.addEventListener('click', async () => {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen()
+          } else {
+            await document.documentElement.requestFullscreen()
+          }
+        })
+
+        window.addEventListener('hashchange', () => {
+          current = parseHash()
+          render()
+        })
+
+        window.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+            event.preventDefault()
+            move(-1)
+          } else if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+            event.preventDefault()
+            move(1)
+          } else if (event.key === 'Home') {
+            event.preventDefault()
+            current = 0
+            render()
+          } else if (event.key === 'End') {
+            event.preventDefault()
+            current = slides.length - 1
+            render()
+          } else if (event.key.toLowerCase() === 'f') {
+            fullscreen?.click()
+          }
+        })
+
+        render()
+      })()
+    </script>
+  </body>
 </html>`)
 })
 
