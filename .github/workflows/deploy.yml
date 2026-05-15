@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Worker
 
 on:
   push:
@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      deployments: write
-      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -30,31 +28,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build presentations
+      - name: Build presentation manifest
         run: npm run build
 
-      - name: Verify build output
+      - name: Verify generated manifest
         run: |
-          echo "Checking dist/ directory contents:"
-          ls -lR dist/
-          echo ""
-          echo "Verifying index.html exists:"
-          test -f dist/index.html && echo "✓ Landing page found" || echo "✗ Landing page missing"
+          echo "Checking generated presentation manifest:"
+          ls -l server/generated/
+          test -f server/generated/presentations.ts
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Deploy to Cloudflare Worker
+        if: github.event_name == 'push'
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: kashu-slides
-          directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref || github.ref_name }}
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: marp-slides-${{ github.sha }}
-          path: dist/
-          retention-days: 7
+          command: deploy
