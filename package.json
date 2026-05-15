@@ -2,12 +2,19 @@
   "name": "marp-slides",
   "version": "1.0.0",
   "private": true,
-  "description": "Marp presentation slides with CI/CD deployment",
+  "description": "Server-rendered Marp slides on Cloudflare Workers",
   "scripts": {
     "build": "node scripts/build-all.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf server/generated",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@marp-team/marp-core": "^4.3.0",
+    "hono": "^4.12.14",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@marp-team/marp-cli": "^4.2.3"
+    "wrangler": "^4.91.0"
   }
 }
